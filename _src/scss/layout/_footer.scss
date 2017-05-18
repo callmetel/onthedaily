@@ -1,0 +1,57 @@
+// #Footer-Styles
+
+footer {
+  @include size(100%, auto);
+  @include fixed(bottom 10px);
+  display: flex;
+  padding: 0 50px;
+  z-index: 90;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 2s ease-in-out;
+
+  ul {
+    list-style-type: none;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      display: flex;
+      align-items: center;
+      width: calc(100% / 6);
+      @include text(10px, 1.0, $font-weight-semi);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      padding: 8px;
+      opacity: .5;
+      transition: $trans-slow;
+
+      &:hover {
+        opacity: 1;
+        transition: $trans-fast;
+      }
+
+      &.nav-active {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.progress {
+  @include size(100%, 1px);
+  background-color: $color-bg-light;
+  transition: $trans-fast;
+  transform: translateX(-100%);
+  flex: 1;
+
+  &--empty {
+    @include size(100%, 1px);
+    margin-left: 12px;
+    background-color: rgba($color-bg-light, .3);
+    transform: translateX(0);
+    overflow: hidden;
+  }
+}

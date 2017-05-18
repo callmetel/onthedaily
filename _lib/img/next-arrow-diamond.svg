@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.24165 59.28028">
+  <title>next-arrow-diamond</title>
+  <g id="d1488e8f-7a9a-49ad-a62e-9e1e30658c15" data-name="Layer 2">
+    <g id="057968e3-af58-4d2b-84e2-8f929ce4535a" data-name="Layer 1">
+      <g>
+        <rect x="9.05074" y="9.07019" width="41.14017" height="41.14017" transform="translate(29.63458 -12.26365) rotate(45)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.75" opacity="0.2"/>
+        <path d="M29.62082,23.85643" fill="none" stroke="#fff" stroke-miterlimit="10"/>
+        <path d="M29.62082,37.54653" fill="none" stroke="#fff" stroke-miterlimit="10"/>
+        <polygon points="27.405 37.547 36.466 30.701 27.405 23.856 27.405 37.547" fill="#fff"/>
+        <polyline points="29.311 0.265 58.711 29.64 29.373 59.015" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.75"/>
+      </g>
+    </g>
+  </g>
+</svg>

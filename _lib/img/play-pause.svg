@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29.55273 29.55273">
+  <title>play-pause</title>
+  <g id="47f24493-7272-4b55-917a-6c85a65f8046" data-name="Layer 2">
+    <g id="c14771d1-b7f4-4f73-a1b5-07d89a66fac8" data-name="Layer 1">
+      <g id="de4f4380-fe86-4e29-b313-a2f4ce854ff8" data-name="pause">
+        <line x1="12.12368" y1="19.89695" x2="12.12368" y2="9.65579" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.75"/>
+        <line x1="17.42905" y1="19.89695" x2="17.42905" y2="9.65579" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.75"/>
+      </g>
+      <polygon id="ce87ae65-ad83-4552-9235-6da75accc532" data-name="play" points="12.867 19.897 12.867 9.656 19.019 14.693 12.867 19.897" fill="#fff"/>
+      <circle cx="14.77637" cy="14.77637" r="14.40137" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.75" opacity="0.2" style="isolation: isolate"/>
+    </g>
+  </g>
+</svg>

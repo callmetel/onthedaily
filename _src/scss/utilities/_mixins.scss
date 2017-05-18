@@ -1,0 +1,164 @@
+// #Mixins
+
+// #Sizing
+//
+// Usage:
+// @include size(value, value);
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin min($min-width, $min-height: $min-width) {
+  min-width: $min-width;
+  min-height: $min-height;
+}
+
+@mixin max($max-width, $max-height: $max-width) {
+  max-width: $max-width;
+  max-height: $max-height;
+}
+
+@mixin aspect-ratio($width, $height) {
+  // position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+  > .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+
+// #Positioning
+//
+// Usage:
+// @include absolute(value, value, value, value);
+@mixin position($position, $args) {
+  @each $o in top right bottom left {
+    $i: index($args, $o);
+
+    @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number  {
+      #{$o}: nth($args, $i + 1);
+    }
+  }
+
+  position: $position;
+}
+
+@mixin absolute($args) {
+  @include position(absolute, $args);
+}
+
+@mixin fixed($args) {
+  @include position(fixed, $args);
+}
+
+@mixin relative($args) {
+  @include position(relative, $args);
+}
+
+
+// #Breakpoints
+//
+// Usage:
+// @include breakpoint(value) {
+//    property: value;
+// }
+@mixin breakpoint($name) {
+  @if map-has-key($breakpoints, $name) {
+    @media #{inspect(map-get($breakpoints, $name))} {
+      @content;
+    }
+  }
+  @else {
+    @warn "Couldn't find a breakpoint named `#{$name}`.";
+  }
+}
+
+
+// #PX-to-REM & Text
+//
+// Usage:
+// @include text(value, value, value, value);
+// @include rem(value);
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+@mixin text($size, $l-height: null, $weight: null, $color: null) {
+  font-size: $size;
+  font-size: calculateRem($size);
+  line-height: $l-height;
+  font-weight: $weight;
+  color: $color;
+}
+
+@mixin rem($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+
+
+// #Keyframes
+//
+// Usage:
+// @include keyframe(animation_name);
+@mixin keyframe($animation_name) {
+  @-webkit-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @-o-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @keyframes #{$animation_name} {
+    @content;
+  }
+}
+
+
+// #Object Fit Polyfill
+//
+// Usage:
+// @include object-fit(cover, top right);
+@mixin object-fit($fit: fill, $position: null){
+  -o-object-fit: $fit;
+     object-fit: $fit;
+  @if $position {
+    -o-object-position: $position;
+       object-position: $position;
+    font-family: 'object-fit: #{$fit}; object-position: #{$position}';
+  } @else {
+    font-family: 'object-fit: #{$fit}';
+  }
+}
+
+
+// #Input Placeholder
+//
+// Usage:
+// @include input-placeholder {
+//    font-size: 18px;
+// }
+@mixin input-placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &:-ms-input-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}

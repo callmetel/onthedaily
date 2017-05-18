@@ -1,0 +1,344 @@
+// #Global-Styles
+
+.desktop {
+  @include size(100%, 100%);
+  position: relative;
+}
+
+.video-overlay {
+  @include size(100%, 100%);
+  position: relative;
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+
+  &--bg {
+    // background-color: rgba($color-bg-dark, .8);
+  }
+}
+
+#video{
+  &.fs{
+    width: calc( 1.78 * 100vw);
+    transform: translate(-50%,-50%);
+    min-height: 100%!important;
+  }
+  min-width: 70vw!important;
+  min-height: 70vw!important;
+  width: 70vw;
+  height: 70vw;
+  transition: width 350ms ease-in-out, height 350ms ease-in-out;
+}
+
+#quote{
+  width: auto;
+  height: 39vw;
+  @include fixed(top 50% left 0);
+  transform: translate(10vw, -40%);
+  cursor: default;
+
+  .--q{
+    width: auto;
+    height: auto;
+    padding: 5px 20px;
+    margin-bottom: 15px;
+    display: block;
+    // opacity:.95;
+    cursor: default;
+    font-size: 3em;
+    font-weight: $font-weight-semi;
+    color: rgba($color-text-light, 0);
+    box-shadow: inset 0 0 0 0 $color-bg-light;
+    
+    &:nth-of-type(1){
+      width: 62%;
+    }
+    &:nth-of-type(2){
+      width: 79%;
+    }
+    &:nth-of-type(4){
+      width: 92%;
+    }
+  }
+}
+
+.loader {
+  @include fixed(top 0 left 0);
+  @include size(100%, 100%);
+  z-index: 1000;
+  display: flex;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgba($color-bg-dark, .97);
+
+  .loader__wrapper {
+    @include absolute(top 50% left 50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+    img {
+      width: 30px;
+      height: 30px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      @include text(10px, 1.0, $font-weight-semi);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+  }
+}
+
+
+// Homepage
+.introduction {
+  @include size(100%, auto);
+  max-width: 70vw;
+  height: 39.5vw;
+  align-self: center;
+  position: relative;
+
+  img {
+    max-width: 225px;
+    margin-bottom: 13px;
+  }
+
+  h1 {
+    margin: 0 0 35px;
+  }
+
+  .btn {
+    display: table;
+    margin: 0;
+    @include absolute(bottom -2vw right -2vw);
+  }
+
+  .btn--start {
+    background-color: $color-bg-dark;
+    border: 0;
+    color: $color-text-light;
+    letter-spacing: -.5px;
+    font-size: 1em;
+    box-shadow: inset 0 0 0 0 $color-bg-dark;
+    transition: all ease-in-out 250ms;
+
+    &.hint{
+      animation: 4000ms hint infinite ease-in-out 2s;  
+    }
+    
+
+    &:hover {
+        box-shadow: inset 250px 0 0 0 $color-bg-light;
+        color: $color-text-dark;
+        animation: none;
+    }
+
+  }
+}
+
+.wipe {
+    animation: 350ms wipe ease-in-out;
+    animation-fill-mode: forwards;
+    transition: all 350ms ease-in-out;
+
+    &.wipeoff{
+      animation-fill-mode: backwards!important;
+    }
+  }
+
+  @for $i from 1 through 5 {
+    .wipe:nth-of-type(#{$i}) {
+      animation-delay: #{$i * 300}ms;
+    }
+  }
+
+.volume-warning {
+  @include size(100%, auto);
+  max-width: 115px;
+  align-self: flex-end;
+  @include absolute(bottom 25px left 50%);
+  transform: translateX(-50%);
+  text-align: center;
+
+  p {
+    @include text(11px, 1.5, $font-weight-light);
+    letter-spacing: .5px;
+    margin-bottom: 15px;
+  }
+
+  svg {
+    @include size(60px, 25px);
+
+    .blink {
+      animation: 1200ms blink infinite ease-in-out;
+    }
+
+    @for $i from 1 through 3 {
+      .blink:nth-of-type(#{$i}) {
+        animation-delay: #{$i * 250}ms;
+      }
+    }
+  }
+}
+
+// Story
+.story {
+  align-self: center;
+
+  h2 {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.learn-more {
+  display: none;
+  // @include size(100%, auto);
+  align-self: center;
+  text-align: left;
+  position: relative;
+
+  .learn-more__wrapper{
+    @include absolute(top 50% left -10%);
+    transform:translateY(-50%);
+  }
+  h3:first-of-type {
+    margin: 0;
+  }
+
+  .content {
+    // padding: 25px 0 30px;
+    margin: 20px 0 25px;
+  }
+
+  p {
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    box-shadow: inset 1200px 0 0 0 $color-bg-light;
+    font-size: 2em;
+    font-weight: $font-weight-semi;
+    padding: 10px 20px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  ul {
+    margin-bottom: 20px;
+    margin-left: 15px;
+    list-style-type: none;
+
+    li {
+      @include text(16px, 1.6);
+
+      &:before {
+        content: '\2022';
+        display: inline-block;
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .visual-content{
+    &.yt-video {
+      @include size(30vw, calc(.5625 * 30vw));
+      @include absolute(top -5vh right -3vw);
+      transition: all 300ms ease-out;
+
+      &--playing{
+        button{
+          opacity:0!important;
+          z-index: -10;
+        }
+        &:before{
+          background: transparent!important;
+          z-index: -10;
+        }
+      }
+
+      &:before{
+        content: '';
+        display: block;
+        @include size(100%, 100%);
+        @include absolute(top 0 left 0);
+        background-image: url('../img/yt-leintro.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        filter: grayscale(20%);
+        opacity:1;
+      }
+
+      button{
+        @include absolute(top 50% left 50%);
+        transform: translate(-50%,-50%);
+        appearance: none;
+        -webkit-appearance: none;
+        border: 0;
+        background: none;
+        color: white;
+        text-transform: uppercase;
+        font-size: 1em;
+        font-weight: $font-weight-semi;
+        padding: 10px 20px;
+        width: 75%;
+        cursor: pointer;
+        box-shadow: inset 500px 0 0 0 $color-bg-dark;
+        color: $color-text-light;
+        transition: all 300ms ease-in-out;
+
+        &:hover {
+            box-shadow: inset 500px 0 0 0 $color-red;
+            color: $color-text-light;
+        }
+
+        span{
+          text-align: left;
+          vertical-align: middle;
+          // float: left;
+
+          .watch{
+            @include size(20px, 20px);
+            background-image: url('../img/play.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: -4px;
+          }
+        }
+      }
+
+      iframe{
+        @include size(100%, 100%);
+      }
+    }
+  }
+}
+
+.journey{
+  h3{
+    width: 391px;
+  }
+  .content{ 
+    p{
+      &:first-of-type{
+        width: 40%;
+      }
+      &:nth-of-type(2){
+        width: 72%;
+      }
+      &:nth-of-type(3){
+        width: 100%;
+      }
+      &:nth-of-type(4){
+        width: 93%;
+      }
+    }
+  }
+}

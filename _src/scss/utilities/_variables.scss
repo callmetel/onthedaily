@@ -1,0 +1,32 @@
+// #Text-Variables
+$font-sans  : 'Gotham', 'Helvetica', Arial, sans-serif;
+$font-serif : 'DomaineText', 'Times New Roman', serif;
+
+$font-weight-light : 300;
+$font-weight-book  : 400;
+$font-weight-semi  : 600;
+$font-weight-bold  : 700;
+
+$color-text-light : #FFFFFF;
+$color-text-dark  : #121212;
+
+$color-bg-light   : #FFFFFF;
+$color-bg-dark    : #121212;
+
+$color-red : #da2121;
+$color-yellow : #e5f343;
+
+$trans-fast  : all 150ms ease-in-out;
+$trans-slow  : all 300ms ease-in-out;
+$trans-cubic : cubic-bezier(0.48, 0.96, 0.57, 1.02);
+
+
+// #Breakpoints
+$breakpoints: (
+  'large':  ( max-width: 1200px )
+);
+
+
+// #File-Paths
+$path-img  : '../img';
+$path-font : '../fonts';

@@ -1,0 +1,111 @@
+// #Animation-Styles
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes wipe {
+  0% {
+    color: rgba($color-text-light, 0);
+    box-shadow: inset 0 0 0 0 $color-bg-light;
+    // background: $color-bg-light;
+  }
+  100% {
+    color: $color-text-light;
+    box-shadow: inset 700px 0 0 0 $color-red;
+    // background: $color-red;
+  }
+}
+
+@keyframes hint {
+  0% {
+    color: $color-text-light;
+    box-shadow: inset 0 0 0 0 $color-bg-dark;
+  }
+  45%{
+    color: $color-text-light;
+    box-shadow: inset 0 0 0 0 $color-bg-dark;
+  }
+  50% {
+    box-shadow: inset 250px 0 0 0 $color-bg-light;
+    color: $color-text-dark;
+  }
+  55% {
+    box-shadow: inset 250px 0 0 0 $color-bg-light;
+    color: $color-text-dark;
+  }
+  95%{
+    box-shadow: inset 250px 0 0 0 $color-bg-light;
+    color: $color-text-dark;
+  }
+  100% {
+    color: $color-text-light;
+    box-shadow: inset 0 0 0 0 $color-bg-dark;
+  }
+}
+
+@keyframes replay {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-360deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes arrow {
+  0% {
+    opacity: 1
+  }
+  20% {
+    opacity: 0;
+    transform: translateX(7px);
+  }
+  25% {
+    opacity: 0;
+    transform: translateX(-7px);
+  }
+  45% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// @keyframes bar-top {
+//   0% {
+//     transform: translateY(3px);
+//   }
+//   50% {
+//     transform: translateY(9px);
+//   }
+//   100% {
+//     transform: translateY(9px) rotate(45deg) scale(1.1);
+//   }
+// }
+
+// @keyframes bar-bottom {
+//   0% {
+//     transform: translateY(15px);
+//   }
+//   50% {
+//     transform: translateY(9px);
+//   }
+//   100% {
+//     transform: translateY(9px) rotate(-45deg) scale(1.1);
+//   }
+// }

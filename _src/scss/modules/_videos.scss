@@ -1,0 +1,17 @@
+// #Video-Styles
+
+.video {
+  @include min(100%, 100%);
+  @include fixed(top 50% left 50%);
+  transform: translate(-50%, -50%);
+  z-index: -20;
+  transition: all 1000ms ease-in-out;
+
+  &--playing {
+    z-index: -10;
+  }
+
+  &--not-fs{
+	transform: translate(-50%, -50%) scale(.5);
+  }
+}

@@ -1,0 +1,72 @@
+// #Base-Styles
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+::selection,
+::-moz-selection {
+  color: $color-text-light;
+  background-color: $color-bg-dark;
+}
+
+html,
+body {
+  @include size(100%, 100%);
+}
+
+body {
+  font-family: $font-sans;
+  @include text(18px, 1.5, $font-weight-book, $color-text-dark);
+  text-align: left;
+  background-color: $color-bg-light;
+  overflow: hidden;
+}
+
+a {
+  color: $color-text-light;
+  transition: all 300ms $trans-cubic;
+}
+
+a:visited {
+  @extend a;
+}
+
+a:hover {
+  transition: all 350ms $trans-cubic;
+}
+
+a:active {
+  @extend a;
+}
+
+.screen-reader {
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+
+  a:focus {
+    position:relative;
+    clip:auto;
+    width:auto;
+    height:auto;
+    overflow:auto;
+  }
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.24165 59.28028">
+  <title>prev-arrow-diamond</title>
+  <g id="2d7b02ce-dd7e-40c6-91a0-5baa6080f45a" data-name="Layer 2">
+    <g id="87ef83fb-6d88-4c03-ba7b-e8a099656c83" data-name="Layer 1">
+      <rect x="9.05074" y="9.07047" width="41.14017" height="41.14017" transform="translate(-12.2833 29.6266) rotate(-45)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.75" opacity="0.2" style="isolation: isolate"/>
+      <path d="M29.62082,23.85671" fill="none" stroke="#fff" stroke-miterlimit="10"/>
+      <path d="M29.62082,37.54681" fill="none" stroke="#fff" stroke-miterlimit="10"/>
+      <polyline points="29.899 59.015 0.561 29.64 29.961 0.265" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.75"/>
+      <path d="M29.4826,21.4604V19.33955l-4.88013,3.22778,4.88013,3.22772V23.48134a5.5065,5.5065,0,1,1-6.36688,5.43561,5.45577,5.45577,0,0,1,.53809-2.37842l-1.80273-.86523a7.4385,7.4385,0,0,0-.73535,3.24365A7.50928,7.50928,0,1,0,29.4826,21.4604Z" fill="#fff"/>
+    </g>
+  </g>
+</svg>

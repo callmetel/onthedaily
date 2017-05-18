@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteRule ^(_lib)($|/) - [L]
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule (.*) / [R=302,L]
