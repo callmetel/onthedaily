@@ -4,17 +4,20 @@ footer {
   @include size(100%, auto);
   @include fixed(bottom 10px);
   display: flex;
+  // display: none;
   padding: 0 50px;
   z-index: 90;
   opacity: 0;
   visibility: hidden;
   transition: all 2s ease-in-out;
 
+
   ul {
     list-style-type: none;
-    width: 95%;
+    width: 60%;
     display: flex;
     justify-content: space-between;
+    margin: 0 auto;
 
     li {
       display: flex;
@@ -35,6 +38,10 @@ footer {
 
       &.nav-active {
         opacity: 1;
+      }
+
+      span{
+        color: $color-text-light;
       }
     }
   }

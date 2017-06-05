@@ -77,46 +77,46 @@ const sections = {
     selector: $('section.home'),
     duration: 31
   },
-  journey: {
-    title: 'Journey',
+  who: {
+    title: 'Who',
     video: videoUrl + 1 + '.mp4',
     loop: loopUrl + 1 + '.mp4',
-    selector: $('section.journey'),
+    selector: $('section.who'),
     duration: 22
   },
-  identify: {
-    title: 'Identify',
+  what: {
+    title: 'What',
     video: videoUrl + 2 + '.mp4',
     loop: loopUrl + 2 + '.mp4',
-    selector: $('section.identify'),
+    selector: $('section.what'),
     duration: 31
   },
-  connect: {
-    title: 'Connect',
+  where: {
+    title: 'Where',
     video: videoUrl + 3 + '.mp4',
     loop: loopUrl + 3 + '.mp4',
-    selector: $('section.connect'),
+    selector: $('section.where'),
     duration: 26
   },
-  guide: {
-    title: 'Guide',
+  when: {
+    title: 'When',
     video: videoUrl + 4 + '.mp4',
     loop: loopUrl + 4 + '.mp4',
-    selector: $('section.guide'),
+    selector: $('section.when'),
     duration: 21
   },
-  support: {
-    title: 'Support',
+  why: {
+    title: 'Why',
     video: videoUrl + 5 + '.mp4',
     loop: loopUrl + 5 + '.mp4',
-    selector: $('section.support'),
+    selector: $('section.why'),
     duration: 31
   },
-  sustain: {
-    title: 'Sustain',
+  how: {
+    title: 'How',
     video: videoUrl + 6 + '.mp4',
     loop: loopUrl + 6 + '.mp4',
-    selector: $('section.sustain'),
+    selector: $('section.how'),
     duration: 35
   }
 };
@@ -139,7 +139,7 @@ function setVideoSrc(section) {
  * Update URL and Document Title
  */
 function updatePageTitle(section) {
-  document.title = sections[section].title + ' | AetnaCare' + '\u2120';
+  document.title = sections[section].title + ' | OnTheDaily' + '\u2120';
 }
 
 
@@ -176,82 +176,171 @@ function progressBar(state) {
  * Learn more overlay
  */
 function learnMore(state) {
-  let $learn     = $('.section--active').find('.learn-more'),
-      $learnWrap = $learn.find('.learn-more__wrapper'),
-      $story     = $('.section--active').find('.story'),
-      $overlay   = $('.section--active').find('.video-overlay'),
-      $video = $('.video');
+  let $learn         = $('.section--active').find('.learn-more'),
+      $learnWrap     = $learn.find('.learn-more__wrapper'),
+      $story         = $('.section--active').find('.story'),
+      $overlay       = $('.section--active').find('.video-overlay'),
+      $video         = $('.video'),
+      $videoWrap     = $('.video-wrapper'),
+      $learnH        = $learnWrap.find('h3'),
+      $learnP        = $('.section--active .learn-more__wrapper .content > p'),
+      $visual        = $learn.find('.visual-content'),
+      $next          = $learn.find('.next'),
+      $iframe        = $visual.find('iframe'),
+      $menu          = $('.btn--menu');
 
   if (state === 'open') {
+    if(!$('.section--active').hasClass('how')){
+      $menu.removeClass('btn--light');
+    };
+
     $story.fadeOut('fast');
-    $video.addClass('video--not-fs');
     $learn.delay(500).fadeIn('fast');
-    learnTL.to($overlay, 1, {backgroundColor: 'rgba(18, 18, 18, 0)'}, '-=1.0')
-      .fromTo($learnWrap, 1.5, {x: -10, y:'-50%'}, {x: 0, y:'-50%'}, '-=0.5');
+    learnTL.to($footer, .25, {alpha:0,visibility:'hidden'})
+           .fromTo($learnWrap, 1.5, {x: -10, y:'-50%'}, {x: 0, y:'-50%'})
+           .set($learnH, {className:'+=wipe'},'-=.85')
+           .staggerTo($learnP, .01, {className:'+=lightwipe'}, 0.3)
+           .fromTo($visual, .35, {alpha:0, y:-20, x:20}, {alpha:1, x:0, y:0, ease:Power1.easeOut}, '+=0.3')
+           .fromTo($next, .35, {alpha:0, y:20, x:20}, {alpha:1, x:0, y:0, ease:Power1.easeOut});
     $skipBtn.css({
       'opacity': 0,
       'visibility': 'hidden'
     });
     progressBar('stop');
-    defineLearnWidth();
+    // defineLearnWidth();
+    
+    if(!$('.section--active').hasClass('how')){
+      $video.addClass('video--not-fs');
+      $videoWrap.addClass('video-wrapper--not-fs');
+    };
+
+    if($('.section--active').hasClass('how')){
+
+      $learn.addClass('learn-more--fs');
+
+      var $source = $visual.find('iframe').attr('data-vimeo-src');
+      $visual.find('iframe').attr('src', $source);
+
+      let $player      = new Vimeo.Player($iframe);
+
+      $player.play().then(function() {
+          // the video was played
+          $('footer').css({
+            opacity: '0',
+            visibility: 'hidden'
+          });
+      }).catch(function(error) {
+          switch (error.name) {
+              case 'PasswordError':
+                  // the video is password-protected and the viewer needs to enter the
+                  // password first
+                  break;
+
+              case 'PrivacyError':
+                  // the video is private
+                  break;
+
+              default:
+                  // some other error occurred
+                  break;
+          }
+      });
+
+      $player.on('play', function() {
+          console.log('played the video!');
+          $visual.addClass('iframe--playing');
+      });
+
+      $player.getVideoTitle().then(function(title) {
+          console.log('title:', title);
+      });
+
+      $player.on('eventName', function(data) {
+          // data is an object containing properties specific to that event
+          $visual.removeClass('iframe--playing');
+      });
+
+      $visual.addClass('iframe--fs-playing');
+    }
     
   } else if (state ==='close') {
     $learn.fadeOut('fast');
     $video.removeClass('video--not-fs');
-    learnTL.to($overlay, 1, {backgroundColor: 'rgba(18, 18, 18, 0)'});
+    $videoWrap.removeClass('video-wrapper--not-fs');
+    $learnP.removeClass('lightwipe');
+    $learnH.removeClass('wipe');
+    learnTL.to($footer, .25, {alpha:1,visibility:'visible'})
+           .to($overlay, 1, {backgroundColor: 'rgba(18, 18, 18, 0)'});
     $skipBtn.css({
       'opacity': 1,
       'visibility': 'visible'
     });
+    $menu.addClass('btn--light');
   }
 }
 
 function defineLearnWidth(){
-  let $videoWidth  = $('.section--active').find('.video').width(),
-      $videoHeight = $('.section--active').find('.video').height(),
+  let $videoWidth  = $('.section--active').find('.video-wrapper').width(),
+      $videoHeight = $('.section--active').find('.video-wrapper').height(),
       $learn       = $('.section--active').find('.learn-more');
-  $learn.width($videoWidth * 0.5);
-  $learn.height($videoHeight * 0.5);
+
+  if($(window).width() > 1200){
+    $learn.width($videoWidth * 0.5);
+    $learn.height($videoHeight * 0.5);
+  } 
+  else{
+    $learn.width($videoWidth * 0.35);
+    $learn.height($videoHeight * 0.35);
+  }
 }
 
+// Open Discover Content
 
-$('.yt-video > button').on('click', function(event){
-  let $container = $(this).parents('.yt-video'),
-      $iframe    = $(this).siblings('iframe'),
-      $player    = new Vimeo.Player($iframe);
+  $('.discover.btn').on('click',function(){
+    $(this).siblings('.discover-content').addClass('discover-content--active');
+    $(this).parents('.learn-more').addClass('learn-more--fs');
 
-  $player.play().then(function() {
-      // the video was played
-      $container.addClass('yt-video--playing');
-  }).catch(function(error) {
-      switch (error.name) {
-          case 'PasswordError':
-              // the video is password-protected and the viewer needs to enter the
-              // password first
-              break;
+    let $container = $(this).siblings('.discover-content'),
+        $back      = $container.children('.back'),
+        $learn     = $(this).parents('.learn-more');
+    
+   if(!$('.section--active').hasClass('why')){
+    var $source = $(this).siblings('.discover-content').children('iframe').attr('data-vimeo-src');
+    $(this).siblings('.discover-content').children('iframe').attr('src', $source);
 
-          case 'PrivacyError':
-              // the video is private
-              break;
+    let $iframe    = $container.children('iframe:not(#free99)'),
+        $player    = new Vimeo.Player($iframe);
 
-          default:
-              // some other error occurred
-              break;
-      }
-  });
+    $player.on('play', function() {
+        console.log('played the video!');
+        $container.addClass('iframe--playing');
+    });
 
-  $player.on('play', function() {
-      console.log('played the video!');
-  });
+    $player.getVideoTitle().then(function(title) {
+        console.log('title:', title);
+    });
 
-  $player.getVideoTitle().then(function(title) {
-      console.log('title:', title);
-  });
+    $player.on('eventName', function(data) {
+        // data is an object containing properties specific to that event
+        $container.removeClass('iframe--playing');
+    });
 
-  $player.on('eventName', function(data) {
-      // data is an object containing properties specific to that event
-      $container.removeClass('yt-video--playing');
-  });
+    $back.on('click', function(){
+      $player.pause();
+      $container.removeClass('iframe--playing discover-content--active');
+      $learn.removeClass('learn-more--fs');
+    });
+
+   } else{
+    var $source = $(this).siblings('.discover-content').children('iframe').attr('data-soundcloud-src');
+    $(this).siblings('.discover-content').children('iframe').attr('src', $source);
+
+    $back.on('click', function(){
+      $container.removeClass('iframe--playing discover-content--active');
+      $learn.removeClass('learn-more--fs');
+    });
+   };
+
 });
 
 
@@ -285,7 +374,7 @@ function playVideo(section) {
   let $selector   = sections[section].selector,
       $video      = $selector.find('.video--scene'),
       $loop       = $selector.find('.video--loop'),
-      $vidSection = $currPlaying.parent();
+      $vidSection = $currPlaying.parents('section');
 
   // Load target video & loop
   setVideoSrc(section);
@@ -301,6 +390,7 @@ function playVideo(section) {
   $currPlaying.removeClass('video--playing');
   $vidSection.removeClass('section--active');
   learnMore('close');
+  $currPlaying.parents('section').find('iframe').removeAttr('src');
 
   if (section === 'home') {
     // $loop[0].addEventListener('ended', function(){
@@ -310,10 +400,11 @@ function playVideo(section) {
     // });
   } else {
     $video.addClass('video--playing');
+    $video.parents('.video-wrapper').addClass('video-wrapper--playing');
   }
 
   $currPlaying = $('.video--playing');
-  $vidSection = $currPlaying.parent();
+  $vidSection = $currPlaying.parents('section');
   $vidSection.addClass('section--active');
 
 
@@ -390,7 +481,8 @@ function skipVideo() {
  * Replay video
  */
 function replayVideo() {
-  let $video = $currPlaying.prev();
+  let $video = $currPlaying.prev(),
+      $videoWrap = $currPlaying.parents('.video-wrapper');
 
   /**
    * 1. Pause currently playing video
@@ -402,6 +494,7 @@ function replayVideo() {
   $currPlaying.removeClass('video--playing');
   $video[0].currentTime = 0;
   $video.addClass('video--playing');
+  $videoWrap.addClass('video-wrapper--playing');
   $currPlaying = $video;
 
   setTimeout(function() {
@@ -415,10 +508,10 @@ function replayVideo() {
  * Jump to next video
  */
 function nextVideo() {
-  let $nextSection = $currPlaying.parent().next('section'),
+  let $nextSection = $currPlaying.parents('section').next('section'),
       sectionClass = $nextSection[0].classList[1],
       pageData     = sectionClass,
-      pageTitle    = sectionClass + ' | AetnaCare' + '\u2120',
+      pageTitle    = sectionClass + ' | OneTakeDave' + '\u2120',
       pageUrl      = sectionClass;
 
   playVideo(sectionClass);
@@ -444,20 +537,20 @@ let videoProgress = setInterval(function() {
 
       // Load Next Video
       switch(currTitle) {
-        case 'journey':
-          setVideoSrc('identify');
+        case 'who':
+          setVideoSrc('what');
           break;
-        case 'identify':
-          setVideoSrc('connect');
+        case 'what':
+          setVideoSrc('where');
           break;
-        case 'connect':
-          setVideoSrc('guide');
+        case 'where':
+          setVideoSrc('when');
           break;
-        case 'guide':
-          setVideoSrc('support');
+        case 'when':
+          setVideoSrc('why');
           break;
-        case 'Support':
-          setVideoSrc('sustain');
+        case 'Why':
+          setVideoSrc('how');
           break;
       }
     }
@@ -466,8 +559,14 @@ let videoProgress = setInterval(function() {
   // Check when current video ends
   if ($currPlaying.hasClass('video--scene') && $currPlaying[0].ended) {
     $currPlaying[0].pause();
-    $currPlaying.removeClass('video--playing').addClass('video--not-fs');
-    $currPlaying.next('.video--loop').addClass('video--playing video--not-fs');
+    if(!$('.section--active').hasClass('how')){
+      $currPlaying.addClass('video--not-fs');
+      $currPlaying.parents('.video-wrapper').addClass('video-wrapper--not-fs');
+      $currPlaying.next('.video--loop').addClass('video--not-fs');
+    };
+    $currPlaying.removeClass('video--playing');
+    $currPlaying.parents('.video-wrapper').removeClass('video-wrapper--playing');
+    $currPlaying.next('.video--loop').addClass('video--playing');
     $currPlaying = $('.video--playing');
     $currPlaying[0].play();
 
@@ -479,9 +578,9 @@ let videoProgress = setInterval(function() {
 
 
 /**
- * Initialize AetnaCare application
+ * Initialize OneTakeDave application
  */
-let AetnaCare = {
+let OneTakeDave = {
   init: function() {
     let pageTitle = document.title,
         pageUrl   = '/',
@@ -555,7 +654,7 @@ let AetnaCare = {
     });
 
 
-    // Start Journey
+    // Start Who
     $startBtn.on('click', function() {
       let $firstNav = $footer.find('.section-nav li:first-of-type'),
           $progBar  = $firstNav.find('.progress:not(.progress--empty)');
@@ -604,7 +703,10 @@ let AetnaCare = {
       $menu.toggleClass('menu-open');
       $menuItems.removeClass('menu-active');
       progressBar('resume');
-      $currPlaying[0].play();
+
+      if( (isMobile.detectMobile() && !$currPlaying.hasClass('video--loop')) || !isMobile.detectMobile() ){
+        $currPlaying[0].play();
+      };
 
       if (!$menu.hasClass('menu-open') && $overlay.hasClass('nav-overlay--open')) {
         $overlay.fadeOut().removeClass('nav-overlay--open');
@@ -632,9 +734,10 @@ let AetnaCare = {
       $currPlaying[0].pause();
 
       // Open navigation item
-      if (targetUrl === 'vision') {
+      if (targetUrl === 'music') {
         $parent.addClass('menu-active').siblings().removeClass('menu-active');
-        $('.vision').fadeIn();
+        alert('ehhh');
+        $('.music').fadeIn();
         $('.disclaimer, .contact').fadeOut();
       } else if (targetUrl === 'disclaimer') {
         $parent.addClass('menu-active').siblings().removeClass('menu-active');
@@ -704,10 +807,10 @@ let AetnaCare = {
       progressTL = new TimelineMax({paused: true});
     });
 
-    // Restart the Journey
+    // Restart the Who
     $restartBtn.on('click', function() {
-      let pageData   = 'journey',
-          pageTitle  = 'Journey | AetnaCare' + '\u2120',
+      let pageData   = 'who',
+          pageTitle  = 'Who | OneTakeDave' + '\u2120',
           pageUrl    = pageData,
           $firstNav  = $footer.find('.section-nav li:first-of-type');
 
@@ -732,6 +835,11 @@ let AetnaCare = {
     /**
      * Begin MOD Mobile Code
      */
+
+      // or if you have multiple videos:
+     // $('video').each(function () {
+     //  enableInlineVideo(this);
+     // });
 
     // Mobile Hamburger Button
     $('#mobile-burger').on('click', function(){
@@ -793,7 +901,7 @@ let AetnaCare = {
  * On Document Ready
  */
 $(function() {
-  AetnaCare.init();
+  OneTakeDave.init();
 });
 
 
@@ -809,7 +917,18 @@ $(function() {
 
 // Define Learn More width
 $win.on('resize', function() {
-  defineLearnWidth();
+  let src  = $('.video:not([src*="mobile"])').attr('src'),
+      src2 = $('.video[src*="mobile"]').attr('src');
+
+  // setTimeout(function(){
+  //   if($(window).width() < 992){
+  //     $('.video:not([src*="mobile"])').attr('src', src.replace('.mp4', '_mobile.mp4')); 
+  //   } else{
+  //     $('.video[src*="mobile"]').attr('src', src2.replace('_mobile.mp4', '.mp4'));
+  //   };  
+  // }, 200);
+  
+    // defineLearnWidth();
 }).resize();  
 
 

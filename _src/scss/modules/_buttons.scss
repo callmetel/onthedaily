@@ -1,12 +1,16 @@
 // #Button-Styles
 
 .btn {
-  border: 1px solid rgba($color-bg-light, .25);
+  border: 1px solid rgba($color-bg-dark, 1);
   padding: 18px 24px;
   @include text(10px, 1.0, $font-weight-semi);
   letter-spacing: 1.5px;
   text-transform: uppercase;
   cursor: pointer;
+
+  @include media($sm-mobile){
+    padding: 10px 16px;
+  }
   
   // Hamburger Menu Closed
   &--menu {
@@ -52,6 +56,24 @@
     }
   }
 
+  // Hamburger Menu Light (on dark or busy background)
+  &--light{
+    &:before{
+      color: $color-text-light;
+    }
+    .bar--top {
+      background: $color-bg-light;
+    }
+
+    .bar--middle {
+      background: $color-bg-light;
+    }
+
+    .bar--bottom {
+      background: $color-bg-light;
+    }
+  }
+
   // Hamburger Menu Open
   &--close {
     &:before{
@@ -89,11 +111,17 @@
   // Skip Button
   &--skip {
     opacity: 0;
-    @include absolute(left 50% bottom 100px);
-    transform: translateX(-50%);
-    z-index: 90;
+    @include absolute(right 0 bottom 0);
+    // transform: translateX(-50%);
+    z-index: 100;
     transition: all 2s ease-in-out;
     visibility: hidden;
+    background: $color-bg-dark;
+  }
+
+  &--restart{
+    background: $color-bg-dark;
+    @include absolute(bottom 0 right 0);
   }
 }
 
@@ -151,6 +179,41 @@
   }
 }
 
+// Discover Button
+.discover {
+  cursor: pointer;
+  text-align: center;
+  background-color: $color-bg-light;
+  border: 0;
+  color: $color-text-dark;
+  letter-spacing: -.5px;
+  font-size: 1em;
+  box-shadow: inset 0 0 0 0 $color-bg-light;
+
+  @include media($sm-mobile){
+    font-size: .75em;
+  }
+
+  &.redhint{
+    animation: 4000ms redhint infinite ease-in-out 2s;  
+  }
+  
+
+  &:hover {
+      box-shadow: inset 250px 0 0 0 $color-red;
+      color: $color-text-light;
+      animation: none;
+  }
+
+  .fa{
+    margin-right: 8px;
+    font-size: 1.25em;
+    vertical-align: middle;
+    margin-top:-4px;
+  }
+
+}
+
 // Next Section
 .next {
   cursor: pointer;
@@ -164,6 +227,11 @@
   letter-spacing: -.5px;
   font-size: 1em;
   box-shadow: inset 0 0 0 0 $color-bg-dark;
+
+  @include media($sm-mobile){
+    font-size: .75em;
+    @include absolute(bottom -2.5% right -5%);
+  }
 
   &.hint{
     animation: 4000ms hint infinite ease-in-out 2s;  

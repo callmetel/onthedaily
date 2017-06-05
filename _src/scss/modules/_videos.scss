@@ -2,7 +2,8 @@
 
 .video {
   @include min(100%, 100%);
-  @include fixed(top 50% left 50%);
+  @include min(100%, 100%);
+  @include absolute(top 50% left 50%);
   transform: translate(-50%, -50%);
   z-index: -20;
   transition: all 1000ms ease-in-out;
@@ -11,7 +12,67 @@
     z-index: -10;
   }
 
-  &--not-fs{
-	transform: translate(-50%, -50%) scale(.5);
+ //  &--not-fs{
+	// transform: translate(-50%, -50%) scale(.5);
+ //  }
+ //  @include media($lg-mobile){
+ //  	&--not-fs{
+	//   transform: translate(-50%, -50%) scale(.35);
+	// }
+ //  }
+}
+
+.video-wrapper{
+	// @include min(100%, 100%);
+  @include fixed(top 50% left 50%);
+  transform: translate(-50%, -50%);
+  z-index: -20;
+  transition: all 1000ms ease-in-out;
+  overflow: hidden!important;
+
+  &--playing {
+    z-index: -10;
   }
+
+  &--not-fs{
+    transition: width 350ms ease-in-out, height 350ms ease-in-out;
+
+    @include media($mobile){
+      width: 60vw!important;
+      height: 64vw!important;
+    }
+    @include media($sm-mobile){
+      width: 80vw!important;
+      height: 87vw!important;
+    }
+    @include media($v-iphone-6-plus){
+      width: 80vw!important;
+      height: 100vw!important;
+    }
+    width: 70vw!important;
+    height: 39.5vw!important;
+  }
+  div{
+  	position: relative;
+  	width: 100%;
+  	height: 100%;
+  	overflow: hidden!important;
+  }
+}
+
+.tp-video-play-button {display: none !important}
+.rev_slider video {pointer-events: none}
+.rev_slider video::-webkit-media-controls-start-playback-button {
+    display: none!important;
+    -webkit-appearance: none;
+}
+video {
+    &::-webkit-media-controls {
+        display:none !important;
+    }
+
+    &::-webkit-media-controls-start-playback-button {
+        display: none!important;
+        -webkit-appearance: none;
+    }
 }

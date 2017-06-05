@@ -1,0 +1,47 @@
+@import "../bower_components/neat/app/assets/stylesheets/neat-helpers";
+
+// Breakpoints
+
+	// Portrait Phone Breakpoints
+		
+		$v-iphone-4: new-breakpoint(max-device-width 320px device-pixel-ratio 2);
+		$v-iphone-5: new-breakpoint(max-device-width 320px orientation portrait);
+		$v-iphone-6: new-breakpoint(max-device-width 413px orientation portrait);
+		$v-iphone-6-plus: new-breakpoint(max-device-width 736px orientation portrait);
+
+	// Landscape Phone Breakpoints
+		
+		$h-iphone-5: new-breakpoint(max-device-width 320px orientation landscape);
+		$h-iphone-6: new-breakpoint(max-device-width 667px orientation landscape);
+		$h-iphone: new-breakpoint(max-device-width 736px orientation landscape);
+
+	// iPad Breakpoints
+		
+		$v-ipad-screen: new-breakpoint(max-device-width 980px orientation portrait);
+		$v-ipad-max-screen: new-breakpoint(max-device-width 1080px orientation portrait);
+		$h-ipad-max-screen: new-breakpoint(max-device-width 1024px orientation landscape);
+		$ipad-pro: new-breakpoint(min-device-width 1366px min-device-height 1024px);
+
+	// Common 13-15in Laptop Screen Breakpoints
+
+		$macbook-pro-13: new-breakpoint(min-device-width 1280px max-width 1366px);
+		$most-common-screen: new-breakpoint(min-device-width 1367px max-width 1440px);
+		$macbook-pro-15: new-breakpoint(min-device-width 1441px);
+
+	// Regular Desktop Breakpoints
+		
+		$desktop: new-breakpoint(min-width 1100px);
+		$md-desktop: new-breakpoint(min-width 1441px max-width 1599px);
+		
+	// Large Desktop Breakpoints	
+
+		$lg-desktop: new-breakpoint(min-width 1600px max-width 2000px);
+		$xl-desktop: new-breakpoint(min-width 2001px);
+
+	// Narrow Desktop Breakpoints
+
+		$xs-mobile: new-breakpoint(max-width 480px);
+		$sm-mobile: new-breakpoint(max-width 768px);
+		$md-mobile: new-breakpoint(max-width 992px);
+		$mobile: new-breakpoint(max-width 1024px);
+		$lg-mobile: new-breakpoint(max-width 1200px);

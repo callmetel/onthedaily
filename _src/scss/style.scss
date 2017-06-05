@@ -1,11 +1,17 @@
 // #Imports
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+// Font Awesome
+// @import '../node_modules/font-awesome-sass/assets/stylesheets/font-awesome'; 
+// Bower
+@import 
+  'bower_components/neat/app/assets/stylesheets/neat';
 
 // #Utiities
 @import
   'utilities/mixins',
   'utilities/placeholders',
-  'utilities/variables';
+  'utilities/variables',
+  'utilities/grid-settings';
 
 // #Base
 @import

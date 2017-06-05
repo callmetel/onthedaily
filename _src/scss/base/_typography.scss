@@ -59,6 +59,15 @@ h2 {
   color: $color-text-light;
   text-transform: uppercase;
   box-shadow: inset 700px 0 0 0 $color-red;
+  @include media($lg-mobile){
+    font-size: 2.5em;  
+  }
+  @include media($sm-mobile){
+    font-size: 1.25em;  
+  }
+  @include media($v-iphone-6-plus){
+    font-size: 1em;  
+  }
 }
 
 h3 {
@@ -74,9 +83,12 @@ h3 {
   cursor: default;
   font-size: 1.5em;
   font-weight: $font-weight-semi;
-  color: $color-text-light;
+  color: rgba($color-text-light, 0);
   text-transform: uppercase;
-  box-shadow: inset 700px 0 0 0 $color-red;
+  // box-shadow: inset 700px 0 0 0 $color-red;
+  @include media($sm-mobile){
+    font-size: 1em;  
+  }
 }
 
 h4 {

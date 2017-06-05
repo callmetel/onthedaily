@@ -70,3 +70,9 @@ a:active {
     overflow:auto;
   }
 }
+
+*{
+  &:focus{
+    outline: 0!important;
+  }
+}

@@ -19,25 +19,55 @@
   }
 }
 
-#video{
-  &.fs{
-    width: calc( 1.78 * 100vw);
-    transform: translate(-50%,-50%);
-    min-height: 100%!important;
-  }
-  min-width: 70vw!important;
-  min-height: 70vw!important;
-  width: 70vw;
-  height: 70vw;
-  transition: width 350ms ease-in-out, height 350ms ease-in-out;
-}
+.video-wrapper{
+    width: 100vw;
+    // transform: translate(-50%,-50%);
+    height:100vh;
 
+  #video{
+    @include size(auto, calc(0.5625 * 70vw));
+    transition: width 350ms ease-in-out, height 350ms ease-in-out;
+
+    @include media($mobile){
+      @include size(auto, calc(1.09 * 60vw));
+    }
+    @include media($sm-mobile){
+      @include size(auto, calc(1.09 * 80vw));
+    }
+  }
+}
+.home{
+  .video-wrapper{
+    z-index:-30!important;
+    width: 70vw;
+    height: 39.5vw;
+    transition: width 350ms ease-in-out, height 350ms ease-in-out;
+
+    @include media($mobile){
+      width: 60vw;
+      height: 64vw;
+    }
+    @include media($sm-mobile){
+      width: 80vw;
+      height: 87vw;
+    }
+    &.fs{
+      width: 100vw;
+      transform: translate(-50%,-50%);
+      height:100vh!important;
+    }
+  }
+}
 #quote{
   width: auto;
   height: 39vw;
   @include fixed(top 50% left 0);
   transform: translate(10vw, -40%);
   cursor: default;
+
+  @include media($sm-mobile){
+     transform: translate(5vw, -60%); 
+  }
 
   .--q{
     width: auto;
@@ -51,7 +81,17 @@
     font-weight: $font-weight-semi;
     color: rgba($color-text-light, 0);
     box-shadow: inset 0 0 0 0 $color-bg-light;
-    
+
+    @include media($lg-mobile){
+      font-size: 2em;
+      margin-bottom: 10px; 
+    }
+
+    @include media($sm-mobile){
+      font-size: 1.25em;
+      padding: 5px 10px;
+    }
+      
     &:nth-of-type(1){
       width: 62%;
     }
@@ -103,6 +143,15 @@
   align-self: center;
   position: relative;
 
+  @include media($mobile){
+    max-width: 60vw;
+    height: 64vw;
+  }
+  @include media($sm-mobile){
+    max-width: 80vw;
+    height: 87vw;
+  }
+
   img {
     max-width: 225px;
     margin-bottom: 13px;
@@ -116,6 +165,9 @@
     display: table;
     margin: 0;
     @include absolute(bottom -2vw right -2vw);
+    @include media($v-iphone-6-plus){
+      @include absolute(bottom 2vw right -2vw);
+    }
   }
 
   .btn--start {
@@ -202,6 +254,23 @@
   align-self: center;
   text-align: left;
   position: relative;
+  width: 70vw;
+  height: 39.5vw;
+  transition: width 350ms ease-in-out, height 350ms ease-in-out;
+
+  @include media($mobile){
+    width: 60vw;
+    height: 64vw;
+  }
+  @include media($sm-mobile){
+    width: 80vw;
+    height: 87vw;
+  }
+
+  &--fs{
+    width: 100vw!important;
+    height: 100vh!important;
+  }
 
   .learn-more__wrapper{
     @include absolute(top 50% left -10%);
@@ -210,22 +279,45 @@
   h3:first-of-type {
     margin: 0;
   }
-
+  .next{
+    opacity: 0;
+  }
   .content {
     // padding: 25px 0 30px;
     margin: 20px 0 25px;
+
+    &.dark{
+      p{
+        box-shadow: inset 1200px 0 0 0 $color-bg-dark!important;
+        color: $color-text-light!important;  
+      }
+    }
   }
 
   p {
     margin-bottom: 15px;
     text-transform: uppercase;
-    box-shadow: inset 1200px 0 0 0 $color-bg-light;
+    // box-shadow: inset 1200px 0 0 0 $color-bg-light;
     font-size: 2em;
     font-weight: $font-weight-semi;
-    padding: 10px 20px;
+    padding: 5px 10px;
+    color: rgba($color-text-dark, 0);
+
+    @include media($lg-mobile){
+      font-size: 1.5em;
+    }
+    @include media($sm-mobile){
+      font-size: .85em;
+    }
 
     &:last-of-type {
       margin-bottom: 0;
+    }
+
+    &.lightwipe {
+      animation: 350ms lightwipe ease-in-out;
+      animation-fill-mode: forwards;
+      transition: all 350ms ease-in-out;
     }
   }
 
@@ -246,10 +338,19 @@
   }
 
   .visual-content{
-    &.yt-video {
+    opacity: 0;
+    &.iframe {
       @include size(30vw, calc(.5625 * 30vw));
       @include absolute(top -5vh right -3vw);
       transition: all 300ms ease-out;
+
+      @include media($mobile){
+        @include absolute(top 10vh right -5vw);
+      }
+
+       @include media($sm-mobile){
+        @include size(33vw, calc(.5625 * 33vw));
+      }
 
       &--playing{
         button{
@@ -262,83 +363,407 @@
         }
       }
 
+      &--fs-playing{
+        width: auto;
+        height: auto;
+        min-width: 100%;
+        min-height: 100%;
+        @include absolute(top 50% left 50%);
+        transform: translate(-50%, -50%)!important;
+
+        iframe{
+          @include absolute(left -1px top -1px);
+          z-index: 1;
+          @include size(100.5%, 100.5%);
+        }
+      }
+
+      &--fs{
+        @include size(30vw, calc(.5625 * 30vw));
+        @include absolute(top 0 right 0);
+      }
+
       &:before{
         content: '';
         display: block;
         @include size(100%, 100%);
         @include absolute(top 0 left 0);
-        background-image: url('../img/yt-leintro.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         filter: grayscale(20%);
         opacity:1;
       }
+    }
+    .discover{
+      @include absolute(top -3vh right -3vw);
+    }
+    .discover-content{
+      visibility: hidden;
+      z-index: -1000;
+      @include size(1vw, 1vh);
+      opacity:0;
+      @include absolute(top 0 left 0);
+      background: $color-bg-light;
+      text-align: center;
+      padding: 5% 8%;
+      overflow-y: auto;
+      transition: all 250ms ease-in-out;
 
-      button{
-        @include absolute(top 50% left 50%);
-        transform: translate(-50%,-50%);
-        appearance: none;
-        -webkit-appearance: none;
-        border: 0;
-        background: none;
-        color: white;
-        text-transform: uppercase;
-        font-size: 1em;
-        font-weight: $font-weight-semi;
-        padding: 10px 20px;
-        width: 75%;
-        cursor: pointer;
-        box-shadow: inset 500px 0 0 0 $color-bg-dark;
-        color: $color-text-light;
-        transition: all 300ms ease-in-out;
-
-        &:hover {
-            box-shadow: inset 500px 0 0 0 $color-red;
-            color: $color-text-light;
-        }
-
-        span{
-          text-align: left;
-          vertical-align: middle;
-          // float: left;
-
-          .watch{
-            @include size(20px, 20px);
-            background-image: url('../img/play.svg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            display: inline-block;
-            vertical-align: middle;
-            margin-top: -4px;
-          }
-        }
+      &--active{
+        @include size(100vw, 100vh!important);
+        opacity:1!important;
+        z-index: 1000!important;
+        visibility: visible!important;
       }
 
+      .back{
+        color: $color-text-dark;
+        text-transform: uppercase;
+        font-weight: 700;
+        @include absolute(top 2vw left 2vw);
+        cursor: pointer;
+        i{
+          margin-right: 8px;
+        }
+      }
+      h4{
+        background: $color-bg-light;
+        color: $color-text-dark;
+        width: 40%;
+        margin: 0 auto;
+        margin-bottom: 50px;
+        font-size: 3em;
+        text-transform: uppercase;
+      }
+      p{
+        color: rgba($color-text-dark, 1);
+        font-size: 1em;
+        font-weight: 300;
+        text-transform: initial;
+        text-align: left;
+        margin: 0 auto 20px auto;
+        text-align: center;
+        width: 60%;
+        text-align: center;
+        margin: 0 auto;
+      }
       iframe{
-        @include size(100%, 100%);
+        opacity: 1;
+        @include size(40vw, calc(0.5625 * 40vw));
+        margin: 50px auto;
       }
     }
   }
 }
 
-.journey{
+.who{
   h3{
     width: 391px;
+    @include media($mobile){
+      width: 276px;
+    }
+    @include media($sm-mobile){
+      width: 200px;
+      margin-top: -20px!important;
+    }
   }
   .content{ 
     p{
       &:first-of-type{
-        width: 40%;
+        width: 79%;
+        @include media($lg-mobile){
+          width: 61%;
+        }
+        @include media($md-mobile){
+          width: 86%;
+        }
+        @include media($sm-mobile){
+          width: 71%;
+        }
       }
       &:nth-of-type(2){
-        width: 72%;
+        width: 50%;
+        @include media($lg-mobile){
+          width: 39%;
+        }
+        @include media($md-mobile){
+          width: 55%;
+        }
+        @include media($sm-mobile){
+          width: 48%;
+        }
       }
       &:nth-of-type(3){
-        width: 100%;
+        width: 90%;
+        @include media($lg-mobile){
+          width: 69%;
+        }
+        @include media($md-mobile){
+          width: 98%;
+        }
+        @include media($sm-mobile){
+          width: 80%;
+        }
       }
       &:nth-of-type(4){
-        width: 93%;
+        width: 74%;
+        @include media($lg-mobile){
+          width: 57%;
+        }
+        @include media($md-mobile){
+          width: 80%;
+        }
+        @include media($sm-mobile){
+          width: 66%;
+        }
       }
+    }
+  }
+  .yt-video{
+    &:before{
+      background-image: url('../img/yt-leintro.jpg');
+    }
+  }
+}
+
+.what{
+  h3{
+    @include media($lg-mobile){
+      width: 344px;
+      margin-top: -20px!important;
+    }
+    @include media($sm-mobile){
+      width: 244px;
+      margin-top: -20px!important;
+    }
+  }
+  .content{ 
+    p{
+      &:first-of-type{
+        width: 76%;
+        @include media($lg-mobile){
+          width: 86%;
+        }
+        @include media($sm-mobile){
+          width: 72%;
+        }
+      }
+      &:nth-of-type(2){
+        width: 77%;
+        @include media($lg-mobile){
+          width: 90%;
+        }
+        @include media($sm-mobile){
+          width: 75%;
+        }
+      }
+      &:nth-of-type(3){
+        width: 67%;
+        @include media($lg-mobile){
+          width: 77%;
+        }
+        @include media($sm-mobile){
+          width: 66%;
+        }
+      }
+      &:nth-of-type(4){
+        width: 55%;
+        @include media($lg-mobile){
+          width: 64%;
+        }
+        @include media($sm-mobile){
+          width: 55%;
+        }
+      }
+    }
+  }
+  .yt-video{
+    &:before{
+      background-image: url('../img/yt-comingthru.png');
+    }
+  }
+}
+
+.where{
+  .content{ 
+    p{
+      &:first-of-type{
+        width: 54%;
+        @include media($lg-mobile){
+          width: 42%;
+        }
+        @include media($sm-mobile){
+          width: 36%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 36%;
+        }
+      }
+      &:nth-of-type(2){
+        width: 100%;
+        @include media($lg-mobile){
+          width: 77%;
+        }
+        @include media($sm-mobile){
+          width: 65%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 64%;
+        }
+      }
+      &:nth-of-type(3){
+        width: 97%;
+        @include media($lg-mobile){
+          width: 73%;
+        }
+        @include media($sm-mobile){
+          width: 63%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 61%;
+        }
+      }
+      &:nth-of-type(4){
+        width: 68%;
+        @include media($lg-mobile){
+          width: 52%;
+        }
+        @include media($sm-mobile){
+          width: 46%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 46%;
+        }
+      }
+    }
+  }
+  .yt-video{
+    &:before{
+      background-image: url('../img/yt-comingthru.png');
+    }
+  }
+}
+
+.when{
+  h3{
+    @include media($sm-mobile){
+      // width: 150px;
+      margin-top: -20px!important;
+    }
+  }
+  .content{ 
+    p{
+      &:first-of-type{
+        width: 54%;
+        @include media($lg-mobile){
+          width: 43%;
+        }
+        @include media($sm-mobile){
+          width: 38%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 38%;
+        }
+      }
+      &:nth-of-type(2){
+        width: 100%;
+        @include media($lg-mobile){
+          width: 78%;
+        }
+        @include media($sm-mobile){
+          width: 66%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 65%;
+        }
+      }
+      &:nth-of-type(3){
+        width: 77%;
+        @include media($lg-mobile){
+          width: 59%;
+        }
+        @include media($sm-mobile){
+          width: 52%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 50%;
+        }
+      }
+      &:nth-of-type(4){
+        width: 62%;
+        @include media($lg-mobile){
+          width: 48%;
+        }
+        @include media($sm-mobile){
+          width: 43%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 41%;
+        }
+      }
+    }
+  }
+  .yt-video{
+    &:before{
+      background-image: url('../img/yt-comingthru.png');
+    }
+  }
+}
+
+.why{
+  h3{
+    width:87%;
+    @include media($lg-mobile){
+      width: 100%;
+    }
+    @include media($v-iphone-6-plus){
+      width: 250px;
+      margin-top: -20px!important;
+    }
+  }
+  .content{ 
+    p{
+      &:first-of-type{
+        width: 100%;
+        @include media($lg-mobile){
+          width: 91%;
+        }
+        @include media($sm-mobile){
+          width: 77%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 74%;
+        }
+      }
+      &:nth-of-type(2){
+        width: 93%;
+        @include media($lg-mobile){
+          width: 84%;
+        }
+        @include media($sm-mobile){
+          width: 72%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 68%;
+        }
+      }
+      &:nth-of-type(3){
+        width: 85%;
+        @include media($lg-mobile){
+          width: 77%;
+        }
+        @include media($sm-mobile){
+          width: 66%;
+        }
+        @include media($v-iphone-6-plus){
+          width: 62%;
+        }
+      }
+    }
+  }
+  .yt-video{
+    &:before{
+      background-image: url('../img/yt-comingthru.png');
     }
   }
 }

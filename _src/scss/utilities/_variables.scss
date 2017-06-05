@@ -30,3 +30,8 @@ $breakpoints: (
 // #File-Paths
 $path-img  : '../img';
 $path-font : '../fonts';
+
+$breakpoint-tablet: 1200px;
+@media (min-width: $breakpoint-tablet) {
+  
+}

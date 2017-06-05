@@ -66,6 +66,10 @@ header {
       transform-origin: center;
       background: $color-red;
       z-index: -1;
+      @include media($v-ipad-max-screen){
+      width: calc(100% + 500px);
+      height: calc(100% + 500px);   
+      }
     }
 
     &.menu-open {
@@ -108,6 +112,10 @@ header {
           box-shadow: inset 0 0 0 0 $color-bg-light;
           transition: all ease 250ms;
 
+          @include media($v-iphone-6-plus){
+            @include text(50px, 1.0, $font-weight-semi);
+          }
+
         }
       }  
     }
@@ -117,13 +125,17 @@ header {
 
 .nav-overlay {
   position: relative;
-  z-index: 90;
+  z-index: 900;
   @include size(100%, 100%);
-  background-color: rgba($color-bg-dark, 0.97);
+  background-color: rgba($color-bg-dark, 1);
   display: none;
+  transform: translateX(100vw);
+  transition: transform 300ms ease-in-out 1s;
+
 
   &--open {
     display: block;
+    transform: translateX(0);
   }
 
   div {
@@ -133,6 +145,7 @@ header {
     transform: translate(-50%, -50%);
     text-align: center;
     display: none;
+    color: $color-text-light;
 
     h3 {
       margin-bottom: 15px;
