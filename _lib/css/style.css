@@ -630,29 +630,6 @@ header {
   opacity: 0;
   transition: all 2s ease-in-out; }
 
-.logo {
-  cursor: pointer;
-  top: 0;
-  left: 50px;
-  position: absolute; }
-  .logo--intro {
-    width: 80px;
-    height: 25px;
-    transition-duration: 750ms;
-    background: url("../img/aetna-logo.svg") no-repeat center/contain; }
-    .logo--intro:hover {
-      opacity: .65 !important; }
-  .logo--story {
-    opacity: 0;
-    visibility: hidden;
-    transition-delay: 250ms;
-    transition-duration: 1000ms;
-    width: 125px;
-    height: 25px;
-    background: url("../img/aetnacare-logo.svg") no-repeat center/contain; }
-    .logo--story:hover {
-      opacity: .65 !important; }
-
 .main-menu {
   top: 0;
   right: 50px;
@@ -1375,6 +1352,8 @@ video::-webkit-media-controls-start-playback-button {
   .learn-more--fs {
     width: 100vw !important;
     height: 100vh !important; }
+    .learn-more--fs .next {
+      display: none; }
   .learn-more .learn-more__wrapper {
     top: 50%;
     left: -10%;
@@ -1493,9 +1472,14 @@ video::-webkit-media-controls-start-playback-button {
       position: absolute;
       background: #FFFFFF;
       text-align: center;
-      padding: 5% 8%;
-      overflow-y: auto;
+      padding: 8vh 8%;
       transition: all 250ms ease-in-out; }
+      @media screen and (max-width: 768px) {
+        .learn-more .visual-content .discover-content {
+          padding-top: 10vh; } }
+      @media screen and (max-device-width: 736px) and (orientation: portrait) {
+        .learn-more .visual-content .discover-content {
+          padding-top: 15vh; } }
       .learn-more .visual-content .discover-content--active {
         width: 100vw;
         height: 100vh !important;
@@ -1506,36 +1490,78 @@ video::-webkit-media-controls-start-playback-button {
         color: #121212;
         text-transform: uppercase;
         font-weight: 700;
-        top: 2vw;
+        top: 38px;
         left: 2vw;
         position: absolute;
         cursor: pointer; }
+        @media screen and (max-width: 768px) {
+          .learn-more .visual-content .discover-content .back {
+            top: 40px;
+            left: 20px; } }
         .learn-more .visual-content .discover-content .back i {
           margin-right: 8px; }
-      .learn-more .visual-content .discover-content h4 {
-        background: #FFFFFF;
-        color: #121212;
-        width: 40%;
-        margin: 0 auto;
-        margin-bottom: 50px;
-        font-size: 3em;
-        text-transform: uppercase; }
-      .learn-more .visual-content .discover-content p {
-        color: #121212;
-        font-size: 1em;
-        font-weight: 300;
-        text-transform: initial;
-        text-align: left;
-        margin: 0 auto 20px auto;
-        text-align: center;
-        width: 60%;
-        text-align: center;
-        margin: 0 auto; }
-      .learn-more .visual-content .discover-content iframe {
-        opacity: 1;
-        width: 40vw;
-        height: calc(0.5625 * 40vw);
-        margin: 50px auto; }
+      .learn-more .visual-content .discover-content div.scroll-container {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto; }
+        .learn-more .visual-content .discover-content div.scroll-container h4 {
+          background: #FFFFFF;
+          color: #121212;
+          width: 40%;
+          margin: 0 auto;
+          margin-bottom: 50px;
+          font-size: 3em;
+          text-transform: uppercase; }
+          @media screen and (max-width: 992px) {
+            .learn-more .visual-content .discover-content div.scroll-container h4 {
+              width: 50%; } }
+          @media screen and (max-width: 1024px) {
+            .learn-more .visual-content .discover-content div.scroll-container h4 {
+              width: 60%; } }
+          @media screen and (max-width: 768px) {
+            .learn-more .visual-content .discover-content div.scroll-container h4 {
+              width: 90%;
+              font-size: 2.5em; } }
+          @media screen and (max-device-width: 736px) and (orientation: portrait) {
+            .learn-more .visual-content .discover-content div.scroll-container h4 {
+              margin-bottom: 30px; } }
+        .learn-more .visual-content .discover-content div.scroll-container p {
+          color: #121212;
+          font-size: 1em;
+          font-weight: 300;
+          text-transform: initial;
+          text-align: left;
+          margin: 0 auto 20px auto;
+          text-align: center;
+          width: 60%;
+          text-align: center;
+          margin: 0 auto; }
+          @media screen and (max-width: 992px) {
+            .learn-more .visual-content .discover-content div.scroll-container p {
+              width: 70%; } }
+          @media screen and (max-width: 768px) {
+            .learn-more .visual-content .discover-content div.scroll-container p {
+              width: 80%; } }
+          @media screen and (max-width: 480px) {
+            .learn-more .visual-content .discover-content div.scroll-container p {
+              width: 100%; } }
+        .learn-more .visual-content .discover-content div.scroll-container iframe {
+          opacity: 1;
+          width: 40vw;
+          height: calc(0.5625 * 40vw);
+          margin: 50px auto; }
+          @media screen and (max-width: 992px) {
+            .learn-more .visual-content .discover-content div.scroll-container iframe {
+              width: 50vw;
+              height: calc(0.5625 * 50vw); } }
+          @media screen and (max-width: 768px) {
+            .learn-more .visual-content .discover-content div.scroll-container iframe {
+              width: 60vw;
+              height: calc(0.5625 * 60vw); } }
+          @media screen and (max-width: 480px) {
+            .learn-more .visual-content .discover-content div.scroll-container iframe {
+              width: 80vw;
+              height: calc(0.5625 * 80vw); } }
 
 .who h3 {
   width: 391px; }
@@ -1551,7 +1577,7 @@ video::-webkit-media-controls-start-playback-button {
   @media screen and (max-width: 1200px) {
     .who .content p:first-of-type {
       width: 61%; } }
-  @media screen and (max-width: 992px) {
+  @media screen and (max-width: 1024px) {
     .who .content p:first-of-type {
       width: 86%; } }
   @media screen and (max-width: 768px) {
@@ -1562,7 +1588,7 @@ video::-webkit-media-controls-start-playback-button {
   @media screen and (max-width: 1200px) {
     .who .content p:nth-of-type(2) {
       width: 39%; } }
-  @media screen and (max-width: 992px) {
+  @media screen and (max-width: 1024px) {
     .who .content p:nth-of-type(2) {
       width: 55%; } }
   @media screen and (max-width: 768px) {
@@ -1573,7 +1599,7 @@ video::-webkit-media-controls-start-playback-button {
   @media screen and (max-width: 1200px) {
     .who .content p:nth-of-type(3) {
       width: 69%; } }
-  @media screen and (max-width: 992px) {
+  @media screen and (max-width: 1024px) {
     .who .content p:nth-of-type(3) {
       width: 98%; } }
   @media screen and (max-width: 768px) {
@@ -1584,7 +1610,7 @@ video::-webkit-media-controls-start-playback-button {
   @media screen and (max-width: 1200px) {
     .who .content p:nth-of-type(4) {
       width: 57%; } }
-  @media screen and (max-width: 992px) {
+  @media screen and (max-width: 1024px) {
     .who .content p:nth-of-type(4) {
       width: 80%; } }
   @media screen and (max-width: 768px) {

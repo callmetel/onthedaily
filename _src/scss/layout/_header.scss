@@ -11,34 +11,6 @@ header {
   transition: all 2s ease-in-out;
 }
 
-.logo {
-  cursor: pointer;
-  @include absolute(top 0 left 50px);
-
-  &--intro {
-    @include size(80px, 25px);
-    transition-duration: 750ms;
-    background: url('#{$path-img}/aetna-logo.svg') no-repeat center / contain;
-
-    &:hover {
-      opacity: .65 !important;
-    }
-  }
-
-  &--story {
-    opacity: 0;
-    visibility: hidden;
-    transition-delay: 250ms;
-    transition-duration: 1000ms;
-    @include size(125px, 25px);
-    background: url('#{$path-img}/aetnacare-logo.svg') no-repeat center / contain;
-
-    &:hover {
-      opacity: .65 !important;
-    }
-  }
-}
-
 .main-menu {
   @include absolute(top 0 right 50px);
 

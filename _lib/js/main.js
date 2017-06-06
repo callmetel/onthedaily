@@ -251,11 +251,17 @@ function learnMore(state) {
           $visual.addClass('iframe--playing');
       });
 
+      $player.on('timeupdate', function(){
+        if($menu.hasClass('menu-open')){
+          $player.pause();
+        };
+      });
+
       $player.getVideoTitle().then(function(title) {
           console.log('title:', title);
       });
 
-      $player.on('eventName', function(data) {
+      $player.on('ended', function(data) {
           // data is an object containing properties specific to that event
           $visual.removeClass('iframe--playing');
       });
@@ -301,28 +307,34 @@ function defineLearnWidth(){
     $(this).parents('.learn-more').addClass('learn-more--fs');
 
     let $container = $(this).siblings('.discover-content'),
-        $back      = $container.children('.back'),
+        $back      = $container.find('.back'),
         $learn     = $(this).parents('.learn-more');
     
    if(!$('.section--active').hasClass('why')){
-    var $source = $(this).siblings('.discover-content').children('iframe').attr('data-vimeo-src');
-    $(this).siblings('.discover-content').children('iframe').attr('src', $source);
+    var $source = $(this).siblings('.discover-content').find('iframe').attr('data-vimeo-src');
+    $(this).siblings('.discover-content').find('iframe').attr('src', $source);
 
-    let $iframe    = $container.children('iframe:not(#free99)'),
+    let $iframe    = $container.find('iframe:not(#free99)'),
         $player    = new Vimeo.Player($iframe);
 
     $player.on('play', function() {
         console.log('played the video!');
-        $container.addClass('iframe--playing');
+        $visual.addClass('iframe--playing');
+    });
+
+    $player.on('timeupdate', function(){
+      if($menu.hasClass('menu-open')){
+        $player.pause();
+      };
     });
 
     $player.getVideoTitle().then(function(title) {
         console.log('title:', title);
     });
 
-    $player.on('eventName', function(data) {
+    $player.on('ended', function(data) {
         // data is an object containing properties specific to that event
-        $container.removeClass('iframe--playing');
+        $visual.removeClass('iframe--playing');
     });
 
     $back.on('click', function(){
@@ -332,8 +344,8 @@ function defineLearnWidth(){
     });
 
    } else{
-    var $source = $(this).siblings('.discover-content').children('iframe').attr('data-soundcloud-src');
-    $(this).siblings('.discover-content').children('iframe').attr('src', $source);
+    var $source = $(this).siblings('.discover-content').find('iframe').attr('data-soundcloud-src');
+    $(this).siblings('.discover-content').find('iframe').attr('src', $source);
 
     $back.on('click', function(){
       $container.removeClass('iframe--playing discover-content--active');
@@ -574,7 +586,7 @@ let videoProgress = setInterval(function() {
     learnMore('open');
 
   }
-}, 1000);
+}, 850);
 
 
 /**
@@ -702,16 +714,18 @@ let OneTakeDave = {
       $this.toggleClass('btn--close');
       $menu.toggleClass('menu-open');
       $menuItems.removeClass('menu-active');
-      progressBar('resume');
 
-      if( (isMobile.detectMobile() && !$currPlaying.hasClass('video--loop')) || !isMobile.detectMobile() ){
+      if($menu.hasClass('menu-open') && !$currPlaying.hasClass('video--loop')) {
+        $currPlaying[0].pause();
+        progressBar('pause');
+      }
+      else if(!$menu.hasClass('menu-open') && !$currPlaying.hasClass('video--loop')) {
+        // $overlay.fadeOut().removeClass('nav-overlay--open');
+        // $overlay.children().fadeOut();
         $currPlaying[0].play();
+        progressBar('resume');
       };
 
-      if (!$menu.hasClass('menu-open') && $overlay.hasClass('nav-overlay--open')) {
-        $overlay.fadeOut().removeClass('nav-overlay--open');
-        $overlay.children().fadeOut();
-      }
     });
 
 
